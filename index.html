@@ -1,12 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Demo Business </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HireFlow — Modern Hiring Infrastructure</title>
+
+  <meta
+    name="description"
+    content="HireFlow helps growing teams attract, screen, and hire great people with less manual work."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f7f7f4;
+      --surface: #ffffff;
+      --text: #171717;
+      --muted: #686868;
+      --line: #deded8;
+      --accent: #635bff;
+      --accent-soft: #ebe9ff;
+      --dark: #171717;
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 247, 244, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      border-color: var(--line);
+    }
+
+    .hero {
+      padding: 96px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #5149d8;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: .94;
+      letter-spacing: -0.065em;
+      max-width: 700px;
+    }
+
+    .hero-copy {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 25px 0 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .product-card {
+      background: var(--dark);
+      color: white;
+      border-radius: 30px;
+      padding: 18px;
+      transform: rotate(1deg);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .13);
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .window-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #777;
+    }
+
+    .dashboard {
+      background: #f8f8f8;
+      color: var(--text);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .dashboard-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+    }
+
+    .mini-card {
+      background: white;
+      border: 1px solid #e6e6e6;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .candidate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #ececec;
+      font-size: 13px;
+    }
+
+    .candidate:last-child {
+      border-bottom: none;
+    }
+
+    .score {
+      padding: 4px 8px;
+      background: #e9f7ee;
+      color: #217346;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .stats {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 34px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      padding: 0 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:first-child {
+      padding-left: 0;
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 34px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      padding: 110px 0;
+    }
+
+    .section-intro {
+      max-width: 690px;
+      margin-bottom: 50px;
+    }
+
+    .section-intro h2 {
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      margin-bottom: 18px;
+    }
+
+    .section-intro p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 270px;
+    }
+
+    .feature-number {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 55px;
+    }
+
+    .feature h3 {
+      font-size: 25px;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .workflow {
+      background: var(--dark);
+      color: white;
+    }
+
+    .workflow .section-intro p {
+      color: #aaa;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #393939;
+      border: 1px solid #393939;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .workflow-step {
+      background: var(--dark);
+      padding: 30px;
+      min-height: 220px;
+    }
+
+    .workflow-step span {
+      color: #9d96ff;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .workflow-step h3 {
+      margin: 35px 0 10px;
+      font-size: 21px;
+    }
+
+    .workflow-step p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .testimonial {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .quote {
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+    }
+
+    .quote-meta {
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      text-align: center;
+      padding-bottom: 130px;
+    }
+
+    .cta-box {
+      background: var(--accent);
+      color: white;
+      border-radius: 30px;
+      padding: 80px 30px;
+    }
+
+    .cta h2 {
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+
+    .cta p {
+      color: #e8e6ff;
+      margin-bottom: 28px;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--text);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 45px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .testimonial {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px 0;
+      }
+
+      .stat:nth-child(2) {
+        border-right: none;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(var(--max), calc(100% - 28px));
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .hero-copy {
+        font-size: 17px;
+      }
+
+      .dashboard-grid,
+      .workflow-grid,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat,
+      .stat:first-child {
+        border-right: none;
+        padding-left: 0;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <h1> My Demo Business </h1>
-    <p>My first production-style deployment lab.</p>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">hire<span>flow</span></a>
+
+      <nav class="nav-links">
+        <a href="#product">Product</a>
+        <a href="#workflow">How it works</a>
+        <a href="#results">Results</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#contact" class="btn btn-primary">Book a demo</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="product">
+      <div class="container hero-grid">
+
+        <div>
+          <div class="eyebrow">MODERN TALENT OPERATIONS</div>
+
+          <h1>Hire great people without the hiring chaos.</h1>
+
+          <p class="hero-copy">
+            HireFlow brings sourcing, screening, candidate communication,
+            and hiring workflows into one simple platform.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Book a demo</a>
+            <a href="#workflow" class="btn btn-secondary">See how it works</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="window-bar">
+            <div class="window-dot"></div>
+            <div class="window-dot"></div>
+            <div class="window-dot"></div>
+          </div>
+
+          <div class="dashboard">
+            <div class="dashboard-head">
+              <span>Hiring Overview</span>
+              <span>This week</span>
+            </div>
+
+            <div class="dashboard-grid">
+              <div class="mini-card">
+                <span>Active candidates</span>
+                <strong>248</strong>
+                <small>+18 this week</small>
+              </div>
+
+              <div class="mini-card">
+                <span>Time to hire</span>
+                <strong>12d</strong>
+                <small>2.4d faster</small>
+              </div>
+            </div>
+
+            <div class="mini-card" style="margin-top:12px;">
+              <strong style="font-size:18px;">Top candidates</strong>
+
+              <div class="candidate">
+                <span>Alex Morgan · Product</span>
+                <span class="score">94%</span>
+              </div>
+
+              <div class="candidate">
+                <span>Jamie Lee · Engineering</span>
+                <span class="score">91%</span>
+              </div>
+
+              <div class="candidate">
+                <span>Sam Patel · Operations</span>
+                <span class="score">88%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="stats" id="results">
+      <div class="container stats-grid">
+        <div class="stat">
+          <strong>42%</strong>
+          <span>less manual screening work</span>
+        </div>
+        <div class="stat">
+          <strong>3.2×</strong>
+          <span>faster candidate review</span>
+        </div>
+        <div class="stat">
+          <strong>68%</strong>
+          <span>more workflow automation</span>
+        </div>
+        <div class="stat">
+          <strong>1</strong>
+          <span>connected hiring workspace</span>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+
+        <div class="section-intro">
+          <div class="eyebrow">WHY HIREFLOW</div>
+          <h2>Everything your hiring team needs in one flow.</h2>
+          <p>
+            Replace disconnected recruiting tools with a workflow designed
+            around the people doing the hiring.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <article class="feature">
+            <div class="feature-number">01</div>
+            <h3>Find better candidates</h3>
+            <p>
+              Build focused candidate pipelines, organize talent pools,
+              and keep promising people engaged.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-number">02</div>
+            <h3>Screen faster</h3>
+            <p>
+              Automate repetitive screening tasks while keeping structured
+              evaluation criteria across your hiring process.
+            </p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-number">03</div>
+            <h3>Make better decisions</h3>
+            <p>
+              Give hiring teams a clear view of candidate progress,
+              feedback, interviews, and decisions.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow" id="workflow">
+      <div class="container">
+
+        <div class="section-intro">
+          <div class="eyebrow">THE WORKFLOW</div>
+          <h2>From application to offer, without the spreadsheet maze.</h2>
+          <p>
+            HireFlow connects every step so your team spends less time
+            managing process and more time talking to people.
+          </p>
+        </div>
+
+        <div class="workflow-grid">
+
+          <article class="workflow-step">
+            <span>01</span>
+            <h3>Attract</h3>
+            <p>Create focused roles and connect candidates to your employer story.</p>
+          </article>
+
+          <article class="workflow-step">
+            <span>02</span>
+            <h3>Screen</h3>
+            <p>Collect structured information and identify the strongest matches.</p>
+          </article>
+
+          <article class="workflow-step">
+            <span>03</span>
+            <h3>Interview</h3>
+            <p>Coordinate interview stages, feedback, and candidate communication.</p>
+          </article>
+
+          <article class="workflow-step">
+            <span>04</span>
+            <h3>Hire</h3>
+            <p>Move the selected candidate through the final steps with confidence.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container testimonial">
+
+        <div>
+          <div class="eyebrow">CUSTOMER STORY</div>
+          <h2>Built for teams that care about both speed and people.</h2>
+        </div>
+
+        <div>
+          <div class="quote">
+            “We finally have one place to see what is happening across every role.”
+          </div>
+
+          <div class="quote-meta">
+            Taylor Nguyen · VP People · Northstar Labs
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Make hiring feel simple again.</h2>
+          <p>See what HireFlow could look like for your team.</p>
+          <a href="mailto:hello@hireflow.example" class="btn">Book a demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 HireFlow</span>
+      <span>Training project · Built for web infrastructure practice</span>
+    </div>
+  </footer>
+
 </body>
 </html>
