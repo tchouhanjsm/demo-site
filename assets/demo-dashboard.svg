@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#171717"/>
+  <rect x="30" y="30" width="740" height="390" rx="18" fill="#f8f8f8"/>
+  <text x="60" y="85" font-family="Arial" font-size="28" font-weight="700">HireFlow Dashboard</text>
+  <rect x="60" y="120" width="210" height="100" rx="12" fill="#ffffff"/>
+  <rect x="295" y="120" width="210" height="100" rx="12" fill="#ffffff"/>
+  <rect x="530" y="120" width="180" height="100" rx="12" fill="#ebe9ff"/>
+  <text x="80" y="165" font-family="Arial" font-size="18">Candidates</text>
+  <text x="80" y="200" font-family="Arial" font-size="30" font-weight="700">248</text>
+  <text x="315" y="165" font-family="Arial" font-size="18">Time to hire</text>
+  <text x="315" y="200" font-family="Arial" font-size="30" font-weight="700">12d</text>
+  <text x="550" y="165" font-family="Arial" font-size="18">Match</text>
+  <text x="550" y="200" font-family="Arial" font-size="30" font-weight="700">94%</text>
+</svg>
